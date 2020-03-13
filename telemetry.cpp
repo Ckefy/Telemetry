@@ -66,7 +66,8 @@ private:
 		formated_date.push_back(temp);
 		if (formated_date[0].length() > 2) {
 			return formated_date[2] + "." + formated_date[1] + "." + formated_date[0];
-		} else {
+		}
+		else {
 			return formated_date[0] + "." + formated_date[1] + "." + formated_date[2];
 		}
 	}
@@ -91,9 +92,12 @@ private:
 
 class Graphic {
 public:
-	
+
 	Graphic(std::string source) {
 		this->image = cv::imread(source).clone();
+		if (image.empty()) {
+			throw "ERROR: No image with such name in direction!";
+		}
 	}
 
 	void resize_resolution(int horizontal, int vertical) {
@@ -102,7 +106,7 @@ public:
 		this->SCREEN_WIDTH = horizontal;
 		this->SCREEN_HEIGHT = vertical;
 		this->THICKNESS = int(10 * (double(SCREEN_WIDTH) / 6000));
-		this->FONT_SCALE = 3.5 * (double (SCREEN_WIDTH) / 6000);
+		this->FONT_SCALE = 3.5 * (double(SCREEN_WIDTH) / 6000);
 		this->DATE_POSITION = cv::Point2f(SCREEN_WIDTH * 0.03, SCREEN_HEIGHT * 0.94);
 		this->DISTANCE_POSITION = cv::Point2f(SCREEN_WIDTH * 0.9, SCREEN_HEIGHT * 0.05);
 		this->LATITUDE_AIM_POSITION = cv::Point2f(SCREEN_WIDTH * 0.72, SCREEN_HEIGHT * 0.90);
@@ -160,7 +164,7 @@ int main() {
 	std::cout << "Write name of source file and image:" << std::endl;
 	std::cin >> file >> image;
 	std::ifstream input(file);
-	
+
 	try {
 		if (!input.is_open()) {
 			throw "ERROR: Could not open the file!";
@@ -178,18 +182,20 @@ int main() {
 		}
 		data.parse_data(data_string);
 		input.close();
-	} catch (const char* message) {
+
+		Graphic graphic(image);
+		if (graphic.getImage().cols < 3000) {
+			graphic.resize_resolution(3000, 2000);
+		}
+		else {
+			graphic.resize_resolution(6000, 4000);
+		}
+		graphic.print(data);
+		imwrite(image.substr(0, image.find('.')) + "_result.JPG", graphic.getImage());
+	}
+	catch (const char* message) {
 		std::cerr << std::endl << message << std::endl << std::endl;
 		system("pause");
 		return -1;
 	}
-
-	Graphic graphic(image);
-	if (graphic.getImage().cols < 3000) {
-		graphic.resize_resolution(3000, 2000);
-	} else {
-		graphic.resize_resolution(6000, 4000);
-	}
-	graphic.print(data);	
-	imwrite(image.substr(0, image.find('.')) + "_result.JPG", graphic.getImage());
 }
