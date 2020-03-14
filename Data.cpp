@@ -11,7 +11,7 @@ void Data::parse_data(const std::string& data) {
 		std::replace(s.begin(), s.end(), ',', '.');
 		parsed.push_back(s);
 	}
-	if (parsed.size() < 12) {
+	if (parsed.size() < NUMBER_OF_DATA) {
 		throw "ERROR: There are less information than expected!\nExpected format: \
 				\nDate\nName\nAzimuth\nTangage\nAngle\nLatitude of observer\nLongitude of observer \
 				\nLatitude of aim\nLongitude of aim\nDistance\nHeight of GPS";
