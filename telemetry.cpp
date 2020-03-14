@@ -9,11 +9,6 @@
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/opencv.hpp>
 
-const int STANDART_WIDTH = 6000;
-const int STANDART_HEIGHT = 4000;
-const int SMALL_WIDTH = 3000;
-const int SMALL_HEIGHT = 2000;
-
 int main() {
 	Data data;
 	std::string file;
@@ -41,11 +36,11 @@ int main() {
 		input.close();
 
 		Graphic graphic(image);
-		if (graphic.getImage().cols < SMALL_WIDTH) {
-			graphic.resize_resolution(SMALL_WIDTH, SMALL_HEIGHT);
+		if (graphic.getImage().cols < graphic.SMALL_WIDTH) {
+			graphic.resize_resolution(graphic.SMALL_WIDTH, graphic.SMALL_HEIGHT);
 		}
 		else {
-			graphic.resize_resolution(STANDART_WIDTH, STANDART_HEIGHT);
+			graphic.resize_resolution(graphic.STANDART_WIDTH, graphic.STANDART_HEIGHT);
 		}
 		graphic.print(data);
 		imwrite(image.substr(0, image.find('.')) + "_result.JPG", graphic.getImage());
