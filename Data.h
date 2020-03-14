@@ -28,6 +28,8 @@ public:
 	
 	std::string height_GPS;
 
+	const int NUMBER_OF_DATA = 12;
+
 private:
 
 	std::string parse_date_format(std::string date);
