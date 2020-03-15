@@ -1,4 +1,5 @@
 #include "Graphic.h"
+#include "Tests.h"
 
 #include <iostream>
 #include <algorithm>
