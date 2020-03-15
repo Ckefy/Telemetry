@@ -21,10 +21,35 @@ void Data::parse_data(const std::string& data) {
 	this->azimuth = parsed[3];
 	this->tangage = parsed[4];
 	this->angle = parsed[5];
-	this->latitude_observer = parse_coordinates(parsed[6]);
-	this->longitude_observer = parse_coordinates(parsed[7]);
-	this->latitude_aim = parse_coordinates(parsed[8]);
-	this->longitude_aim = parse_coordinates(parsed[9]);
+
+	if (std::abs(stod(parsed[6])) <= 90) {
+		this->latitude_observer = parse_coordinates(parsed[6]);
+	}
+	else {
+		throw "ERROR: Latitude of observer can`t be more than 90 degrees!";
+	}
+
+	if (std::abs(stod(parsed[7])) <= 180) {
+		this->longitude_observer = parse_coordinates(parsed[7]);
+	}
+	else {
+		throw "ERROR: Longitude of observer can`t be more than 180 degrees!";
+	}
+
+	if (std::abs(stod(parsed[8])) <= 90) {
+		this->latitude_aim = parse_coordinates(parsed[8]);
+	}
+	else {
+		throw "ERROR: Latitude of aim can`t be more than 90 degrees!";
+	}
+
+	if (std::abs(stod(parsed[9])) <= 180) {
+		this->longitude_aim = parse_coordinates(parsed[9]);
+	}
+	else {
+		throw "ERROR: Longitude of aim can`t be more than 180 degrees!";
+	}
+
 	this->distance = parsed[10] + "m";
 	this->height_GPS = parsed[11];
 }
@@ -44,16 +69,31 @@ std::string Data::parse_date_format(std::string date) {
 		index++;
 	}
 	formated_date.push_back(temp);
+	if (stoi(formated_date[1]) > 12) {
+		throw "ERROR: There are only 12 months in the year";
+	}
 	if (formated_date[0].length() > 2) {
+		if (stoi(formated_date[2]) > 31) {
+			throw "ERROR: There are maximum 31 days in the month";
+		}
 		return formated_date[2] + "." + formated_date[1] + "." + formated_date[0];
 	}
 	else {
+		if (stoi(formated_date[0]) > 31) {
+			throw "ERROR: There are maximum 31 days in the month";
+		}
 		return formated_date[0] + "." + formated_date[1] + "." + formated_date[2];
 	}
 }
 
 std::string Data::parse_coordinates(std::string coord) {
 	bool minus = coord[0] == '-' ? true : false;
+	if (minus) {
+		coord = coord.substr(1);
+	}
+	if (coord.find('.') == std::string::npos) {
+		return coord + ".00.00";
+	}
 	int degree = stoi(coord.substr(0, coord.find('.')));
 	double mod = stod("0." + coord.substr(coord.find('.') + 1));
 	std::string minutes = std::to_string(mod * 60);
