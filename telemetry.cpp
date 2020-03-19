@@ -47,7 +47,9 @@ int main() {
 				std::getline(input, data_string);
 			}
 			if (data_string.find(image) == std::string::npos) {
-				throw "ERROR: No image with such name in source file!";
+				input.clear();
+				input.seekg(0, std::ios::beg);
+				continue;
 			}
 			input.clear();
 			input.seekg(0, std::ios::beg);
