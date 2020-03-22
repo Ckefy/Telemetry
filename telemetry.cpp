@@ -55,7 +55,7 @@ int main() {
 			input.seekg(0, std::ios::beg);
 			data.parse_data(data_string);
 
-			Graphic graphic(image);
+			Graphic graphic(pathStr + "/" + image);
 			if (graphic.getImage().cols < graphic.SMALL_WIDTH) {
 				graphic.resize_resolution(graphic.SMALL_WIDTH, graphic.SMALL_HEIGHT);
 			}
