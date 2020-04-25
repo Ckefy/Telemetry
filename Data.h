@@ -4,6 +4,8 @@
 class Data {
 public:
 	
+	enum Measurements;
+
 	void parse_data(const std::string& data);
 
 	std::string date;
@@ -12,7 +14,7 @@ public:
 	
 	std::string azimuth;
 	
-	std::string tangage;
+	std::string pitch;
 	
 	std::string angle;
 	
@@ -29,8 +31,6 @@ public:
 	std::string height_GPS;
 
 	const int NUMBER_OF_DATA = 12;
-
-private:
 
 	std::string parse_date_format(std::string date);
 
