@@ -5,7 +5,13 @@ class Test {
 	
 public:
 
-	void test();
+	void allTest();
 
-	void print_result(Data data);
+	void testParseData();
+
+	void print_resultParseData(Data data);
+
+	void testParseCoordinates();
+
+	void testParseDateFormat();
 };

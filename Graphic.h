@@ -46,13 +46,13 @@ private:
 
 	void print_text(std::string text, cv::Point text_position);
 
-	int SCREEN_WIDTH;
+	int screen_width;
 
-	int SCREEN_HEIGHT;
+	int screen_height;
 	
-	int FONT = cv::FONT_HERSHEY_SIMPLEX;
+	int font = cv::FONT_HERSHEY_SIMPLEX;
 	
-	double FONT_SCALE;
+	double font_scale;
 	
 	cv::Scalar WHITE = cv::Scalar(255, 255, 255);
 
@@ -62,7 +62,7 @@ private:
 
 	cv::Scalar RECTANGLE_COLOR = BLACK;
 	
-	int THICKNESS;
+	int thickness;
 	
 	const int LINE_TYPE = 8;
 
@@ -70,16 +70,16 @@ private:
 
 	const int RECTANGLE_THICKNESS = -1; //-1 to fill rectangle
 	
-	cv::Point DATE_POSITION;
+	cv::Point date_position;
 	
-	cv::Point DISTANCE_POSITION;
+	cv::Point distance_position;
 	
-	cv::Point LATITUDE_AIM_POSITION;
+	cv::Point latitude_aim_position;
 	
-	cv::Point LONGITUDE_AIM_POSITION;
+	cv::Point longitude_aim_position;
 	
-	cv::Point LATITUDE_OBSERVER_POSITION;
+	cv::Point latitude_observer_position;
 	
-	cv::Point LONGITUDE_OBSERVER_POSITION;
+	cv::Point longitude_observer_position;
 
 };
